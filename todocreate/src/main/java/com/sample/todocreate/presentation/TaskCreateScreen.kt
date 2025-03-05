@@ -155,7 +155,7 @@ fun TaskCreateScreen(
                     }
                 },
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            /*Spacer(modifier = Modifier.height(16.dp))
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = viewModel.descState.value.text,
@@ -196,7 +196,7 @@ fun TaskCreateScreen(
                     }
 
                 },
-            )
+            )*/
             Row(
                 modifier = Modifier
                     .fillMaxSize(),
@@ -208,7 +208,7 @@ fun TaskCreateScreen(
                         .fillMaxWidth()
                         .padding(bottom = 16.dp),
                     onClick = {
-                        viewModel.onEvent(com.sample.todocreate.presentation.TaskEvent.AddTask)
+                        viewModel.onEvent(TaskEvent.AddTask)
                     },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFF7CAE60)

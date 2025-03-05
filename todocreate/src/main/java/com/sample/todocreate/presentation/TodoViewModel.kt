@@ -4,6 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sample.todocore.data.mapper.toToDoDomain
+import com.sample.todocore.domain.model.ToDoUi
 import com.sample.todocore.presentation.StandardTextFieldState
 import com.sample.todocore.presentation.UiEvent
 import com.sample.todocore.presentation.events.FieldStatus
@@ -53,11 +54,11 @@ class TodoViewModel @Inject constructor(
                     text = event.title
                 )
             }
-            is TaskEvent.EnteredDescription ->{
+            /*is TaskEvent.EnteredDescription ->{
                 _descState.value = descState.value.copy(
                     text = event.description
                 )
-            }
+            }*/
             is TaskEvent.DialogueEvent ->{
                 _dialogState.value = event.isDismiss
                 viewModelScope.launch {
@@ -75,7 +76,7 @@ class TodoViewModel @Inject constructor(
                     } catch (e:IllegalArgumentException){
                         _eventFlow.emit(UiEvent.NavigateUp("Exception"))
                     }
-                    var titleStatus: FieldStatus = when (titleResult.title) {
+                    val titleStatus: FieldStatus = when (titleResult.title) {
                         InputStatus.EMPTY -> FieldStatus.FieldEmpty
                         InputStatus.LENGTH_TOO_SHORT -> FieldStatus.InputTooShort
                         InputStatus.VALID -> FieldStatus.FieldFilled
@@ -84,7 +85,7 @@ class TodoViewModel @Inject constructor(
                     _titleState.value = titleState.value.copy(
                         error = titleStatus
                     )
-                    var descriptionResult = descriptionUseCase(description = _descState.value.text)
+                    /*var descriptionResult = descriptionUseCase(description = _descState.value.text)
                     var descriptionStatus:FieldStatus = when (descriptionResult.description) {
                         InputStatus.EMPTY -> FieldStatus.FieldEmpty
                         InputStatus.LENGTH_TOO_SHORT -> FieldStatus.InputTooShort
@@ -93,10 +94,10 @@ class TodoViewModel @Inject constructor(
                     }
                     _descState.value = descState.value.copy(
                         error = descriptionStatus
-                    )
-                    if(titleResult.title ==InputStatus.VALID && descriptionResult.description == InputStatus.VALID)
+                    )*/
+                    if(titleResult.title ==InputStatus.VALID /*&& descriptionResult.description == InputStatus.VALID*/)
                     {
-                        val task = com.sample.todocore.domain.model.ToDoUi(
+                        val task = ToDoUi(
                             title = _titleState.value.text, description = _descState
                                 .value.text
                         )
@@ -110,6 +111,8 @@ class TodoViewModel @Inject constructor(
 
                 }
             }
+
+            is TaskEvent.EnteredDescription -> ""
         }
 
     }

@@ -41,15 +41,7 @@ fun AppBar(
         modifier = modifier
             .heightIn(searchBoxHeight.dp),
 
-//            navigationIcon = {
-//                IconButton(onClick = backClick) {
-//                    Icon(
-//                        imageVector = Icons.Filled.ArrowBack,
-//                        contentDescription = "",
-//                        tint = White
-//                    )
-//                }
-//            },
+
         title = {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -69,7 +61,7 @@ fun AppBar(
             }
         },
 
-        colors = TopAppBarDefaults.smallTopAppBarColors(Color(0xFF598626)),
+        colors = TopAppBarDefaults.smallTopAppBarColors(Color(0xFF7CAE60)),
         actions = {
             if(isSearchEnable) {
                 Box(
@@ -95,7 +87,7 @@ fun AppBar(
 @Composable
 fun HomeAppBarPreview() {
     AppBar(
-        title = "Romantic Comedy",
+        title = "Appbar",
         searchClick = { },
         backClick = { },
         isSearchEnable = false

@@ -1,6 +1,7 @@
 package com.sample.todohome.presentation
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -8,12 +9,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -104,7 +107,7 @@ fun HomeScreen(
 }
 @Composable
 fun TopBarView(viewModel: HomeTodoViewModel){
-    var showSearch = viewModel.topBarState.value
+    val showSearch = viewModel.topBarState.value
     if(!showSearch) {
         AppBar(
             title = stringResource(id = R.string.app_bar_title),
@@ -118,6 +121,7 @@ fun TopBarView(viewModel: HomeTodoViewModel){
         SearchBar(
             Modifier.padding(horizontal = 16.dp),
             onSearchTextEntered = {
+               // LoadingIndicator()
                 viewModel.onSearchEvent(SearchEvent.OnSearchQuery(it))
             },
             onSearchStart = {
@@ -138,6 +142,20 @@ fun TopBarView(viewModel: HomeTodoViewModel){
         )
     }
 }
+@Composable
+fun LoadingIndicator() {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        CircularProgressIndicator(
+            modifier = Modifier.size(50.dp), // Adjust size
+            color = Color.Blue, // Change color if needed
+            strokeWidth = 4.dp // Adjust thickness
+        )
+    }
+}
+
 @Composable
 fun ShowTodoList(viewModel: HomeTodoViewModel){
 
