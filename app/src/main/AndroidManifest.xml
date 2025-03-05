@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:name=".presentation.App"
+        android:name="com.sample.singlepointtask.App"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -14,7 +14,7 @@
         android:theme="@style/Theme.SinglePointTask"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.SinglePointTask">

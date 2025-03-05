@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SinglePointTask</string>
     <string name="error_unknown">Unknown Error</string>
-    <string name="add_todo_title">Add TODO</string>
-    <string name="app_bar_title">TODO LIST</string>
     <string name="placeholder_search">Search</string>
+    <string name="app_bar_title">TODO LIST</string>
+    <string name="add_todo_title">ADD TODO</string>
 </resources>
