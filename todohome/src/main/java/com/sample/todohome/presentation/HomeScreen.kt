@@ -101,6 +101,18 @@ fun HomeScreen(
                     bottom = it.calculateBottomPadding()
                 )
         ) {
+            Column (horizontalAlignment = Alignment.CenterHorizontally,
+                modifier =Modifier.fillMaxWidth().padding(8.dp)){
+                if (viewModel.loadingState.value) {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .size(24.dp),
+
+                        strokeWidth = 2.dp
+                    )
+                }
+            }
+
             ShowTodoList(viewModel)
         }
     }
@@ -121,7 +133,6 @@ fun TopBarView(viewModel: HomeTodoViewModel){
         SearchBar(
             Modifier.padding(horizontal = 16.dp),
             onSearchTextEntered = {
-               // LoadingIndicator()
                 viewModel.onSearchEvent(SearchEvent.OnSearchQuery(it))
             },
             onSearchStart = {
@@ -138,7 +149,9 @@ fun TopBarView(viewModel: HomeTodoViewModel){
                 viewModel.onSearchEvent(SearchEvent.OnClearPressed)
             },
             viewModel.searchQuery.value,
-            viewModel.focusState.value
+            viewModel.focusState.value,
+          //  isLoading = viewModel.loadingState.value // 🔹 Pass loading state here
+
         )
     }
 }

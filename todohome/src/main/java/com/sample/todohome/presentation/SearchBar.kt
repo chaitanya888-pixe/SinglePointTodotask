@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
@@ -75,7 +76,7 @@ fun SearchBar(
     onBackPressed: () -> Unit,
     onClearPressed: () -> Unit,
     searchQuery: String,
-    onFocusState: Boolean
+    onFocusState: Boolean,isLoading :Boolean=false
 ) {
     val textState = searchQuery
     val focusState = onFocusState
@@ -92,7 +93,7 @@ fun SearchBar(
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn((searchBoxHeight +4).dp)
+                .heightIn((searchBoxHeight + 4).dp)
                 .onFocusChanged {
                     Log.d("SearchBar", "value = " + focusState)
                     onFocusChange(it.isFocused)
@@ -112,20 +113,23 @@ fun SearchBar(
             ),
 
             trailingIcon = {
-                IconButton(
-                    onClick = {
-                        onSearchTextEntered("")
-                        onClearPressed()
-                        onBackPressed()
-                    }
-                ) {
 
-                    Icon(
-                        imageVector = Icons.Default.Clear,
-                        contentDescription = null,
-                        tint = Color.White,
-                    )
-                }
+
+                    IconButton(
+                        onClick = {
+                            onSearchTextEntered("")
+                            onClearPressed()
+                            onBackPressed()
+                        }
+                    ) {
+
+                        Icon(
+                            imageVector = Icons.Default.Clear,
+                            contentDescription = null,
+                            tint = Color.White,
+                        )
+                    }
+
             },
             colors = TextFieldDefaults.colors( //
                 unfocusedContainerColor = Color(0xFF598626),
@@ -148,7 +152,7 @@ fun SearchBar(
                 )
             }
         )
-        Column(
+        /*Column(
             modifier = Modifier
                 .heightIn(searchBoxHeight.dp)
                 .padding(bottom = 5.dp),
@@ -162,7 +166,7 @@ fun SearchBar(
                     .background(Color.White)
                     .offset(y = (-1).dp)
             )
-        }
+        }*/
     }
 }
 @Composable

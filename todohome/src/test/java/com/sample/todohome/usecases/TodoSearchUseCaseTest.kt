@@ -42,7 +42,7 @@ class ToDoSearchUseCaseTest {
     }
 
     @Test
-    fun `test invoke`() = runBlocking {
+    fun testInvoke() = runBlocking {
 
         val todoList = listOf(
             ToDoDomain(1, "Task 1", "Description 1"),

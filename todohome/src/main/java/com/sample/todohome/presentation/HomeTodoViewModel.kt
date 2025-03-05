@@ -1,5 +1,6 @@
 package com.sample.todohome.presentation
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,10 +24,10 @@ class HomeTodoViewModel @Inject constructor(
     private val
     todoSearchUseCase: TodoSearchUsecase
 ) : ViewModel() {
-    private var _mutableList= mutableStateOf<List<ToDoDomain>>(emptyList())
-val mutableList=_mutableList
+    private var _mutableList = mutableStateOf<List<ToDoDomain>>(emptyList())
+    val mutableList = _mutableList
     private var _eventFlow = MutableSharedFlow<UiEvent>()
-    val eventFlow=_eventFlow.asSharedFlow()
+    val eventFlow = _eventFlow.asSharedFlow()
     private val _searchQuery = mutableStateOf("")
     val searchQuery = _searchQuery
 
@@ -36,36 +37,48 @@ val mutableList=_mutableList
     private val _topBarState = mutableStateOf(false)
     val topBarState = _topBarState
 
+    private val _loadingState = mutableStateOf(false)
+    val loadingState: State<Boolean> = _loadingState
+
     fun getList() {
         viewModelScope.launch {
-            todoListUseCase.invoke().flowOn(Dispatchers.IO).collect{
-                mutableList.value=it
+            todoListUseCase.invoke().flowOn(Dispatchers.IO).collect {
+                mutableList.value = it
             }
         }
     }
-    fun onSearchEvent(event: SearchEvent){
 
-        when(event){
-            is SearchEvent.TopSearchSelected ->{
+    fun onSearchEvent(event: SearchEvent) {
+
+        when (event) {
+            is SearchEvent.TopSearchSelected -> {
                 _topBarState.value = event.selected
             }
-            is SearchEvent.OnSearchQuery ->{
+
+            is SearchEvent.OnSearchQuery -> {
+                _loadingState.value = true
                 searchQuery.value = event.query
             }
-            is SearchEvent.OnSearchStart ->{
+
+            is SearchEvent.OnSearchStart -> {
                 viewModelScope.launch {
-                    todoSearchUseCase(event.query).flowOn(Dispatchers.IO).collect{
+                    todoSearchUseCase(event.query).flowOn(Dispatchers.IO).collect {
                         mutableList.value = it
+                        _loadingState.value = false
+
                     }
                 }
             }
-            is SearchEvent.OnFocusChange ->{
+
+            is SearchEvent.OnFocusChange -> {
                 focusState.value = event.focus
             }
 
-            is SearchEvent.OnClearPressed ->{
-                _searchQuery.value=""
+            is SearchEvent.OnClearPressed -> {
+                _searchQuery.value = ""
                 _topBarState.value = false
+                _loadingState.value = false
+
                 getList()
             }
 
