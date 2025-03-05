@@ -167,7 +167,7 @@ fun StartSearchAfterDelay(
 ) {
     CircularProgressIndicator()
     LaunchedEffect(searchQuery) {
-        delay(2000)
+        delay(1000)
         onSearchStart(searchQuery)
     }
 
